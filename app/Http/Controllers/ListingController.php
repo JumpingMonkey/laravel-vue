@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class ListingController extends Controller
 {
@@ -25,7 +26,7 @@ class ListingController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Listing/Create');
     }
 
     /**
@@ -33,7 +34,22 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $validated = $request->validate();
+
+        Listing::create(
+            $request->validate([
+                'beds' => 'required|integer|min:0|max:20',
+                'beths' => 'required|integer|min:0|max:20',
+                'area' => 'required|integer|min:15|max:1500',
+                'city' => 'required',
+                'code' => 'required',
+                'street' => 'required',
+                'street_nr' => 'required|min:1|max:1000',
+                'price' => 'required|min:1|integer|max:20000000',
+            ])
+        );
+
+        return redirect()->route('listing.index')->with('success', 'Listing was created!');
     }
 
     /**
