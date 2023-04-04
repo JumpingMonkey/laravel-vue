@@ -21,4 +21,4 @@ Route::controller(IndexController::class)->group(function(){
 });
 
 Route::resource('listing', ListingController::class)
-    ->only(['index', 'show', 'create', 'store']);
+    ->except(['destroy']);
