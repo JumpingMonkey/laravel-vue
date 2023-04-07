@@ -20,5 +20,4 @@ Route::controller(IndexController::class)->group(function(){
     Route::get('/hello', 'show');
 });
 
-Route::resource('listing', ListingController::class)
-    ->except(['destroy']);
+Route::resource('listing', ListingController::class);
