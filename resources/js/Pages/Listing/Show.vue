@@ -2,7 +2,7 @@
     <div>
         <ListingAddress :listing="listing"></ListingAddress>
     </div>
-    <Link :href="/listing/">Show all listings</Link>
+    <Link href="/listing/">Show all listings</Link>
 </template>
 
 <script setup>

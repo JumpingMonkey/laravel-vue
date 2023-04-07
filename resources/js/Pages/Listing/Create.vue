@@ -87,7 +87,7 @@
         price: 0,
     })
 
-    const creeate = () => form.post('/listing', form)
+    const create = () => form.post(route('listing.store'), form)
 </script>
   
   <style scoped>
