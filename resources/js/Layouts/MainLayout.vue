@@ -1,6 +1,6 @@
 <template>
 
-    <header class="border-b w-full border-gray-200 dark:border-gray-700 dark:bg-gray-800 bg-white">
+    <header class="border-b w-full border-gray-200 dark:border-gray-700 dark:bg-gray-900 bg-white">
         <div class="container mx-auto"></div>
         <nav class="p-4 flex items-center justify-between">
             <div class="text-lg font-medium">
