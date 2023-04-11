@@ -59,7 +59,7 @@
           </div>
         </div>
   
-        <div class="col-span-2">
+        <div class="col-span-6">
           <label class="label">Price</label>
           <input type="text" v-model.number="form.price" class="input"/>
           <div v-if="form.errors.price">

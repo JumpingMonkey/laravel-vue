@@ -4,6 +4,11 @@ import MainLayout from './Layouts/MainLayout.vue'
 import {ZiggyVue} from 'ziggy'
 import '../css/app.css'
 
+import NProgress from 'nprogress'
+import { router } from '@inertiajs/vue3'
+router.on('start', () => NProgress.start())
+router.on('finish', () => NProgress.done())
+
 createInertiaApp({
   resolve: name => {
     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
@@ -19,4 +24,5 @@ createInertiaApp({
       .use(plugin)
       .mount(el)
   },
+  progress: false,
 })
