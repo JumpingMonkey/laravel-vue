@@ -20,13 +20,13 @@ class AuthController extends Controller
 
         if (!Auth::attempt($validated, true)) {
             throw ValidationException::withMessages([
-                'email' => 'Authentification failed',
+                'email' => 'Authentication failed',
             ]);
         }
 
         $request->session()->regenerate();
 
-        return redirect()->intended();
+        return redirect()->intended('/listing');
     }
 
     public function destroy() {}
