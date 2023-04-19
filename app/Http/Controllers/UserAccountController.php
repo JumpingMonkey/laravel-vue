@@ -22,10 +22,7 @@ class UserAccountController extends Controller
             'password' => 'required|min:8|confirmed',
         ]);
 
-        $user = User::make($validated);
-        $user->password = Hash::make($user->password);
-        $user->save();
-
+        $user = User::create($validated);
         Auth::login($user);
 
         return redirect()->route('listing.index')->with('success', 'Account was created!');
