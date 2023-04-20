@@ -17,10 +17,12 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
-        Listing::factory(10)->create();
+        Listing::factory(10)->create([
+            'by_user_id' => $user->id,
+        ]);
     }
 }
