@@ -17,7 +17,6 @@ class AuthController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
-
         if (!Auth::attempt($validated, true)) {
             throw ValidationException::withMessages([
                 'email' => 'Authentication failed',
