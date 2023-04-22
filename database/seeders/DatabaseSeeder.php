@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'is_admin' => true,
         ]);
         $user2 = User::factory()->create([
             'name' => 'Test User 2',
@@ -27,6 +28,9 @@ class DatabaseSeeder extends Seeder
         ]);
         Listing::factory(10)->create([
             'by_user_id' => 1,
+        ]);
+        Listing::factory(10)->create([
+            'by_user_id' => 2,
         ]);
     }
 }
