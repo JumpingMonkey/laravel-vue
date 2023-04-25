@@ -27,31 +27,31 @@ class ListingController extends Controller
             'areaTo',
         ]);
 
-        $query = Listing::orderByDesc('created_at');
-
-        if ($filters['priceFrom'] ?? false){
-            $query->where('price', '>=', $filters['priceFrom']);
-        }
-
-        if ($filters['priceTo'] ?? false){
-            $query->where('price', '<=', $filters['priceTo']);
-        }
-
-        if ($filters['beds'] ?? false){
-            $query->where('beds', $filters['beds']);
-        }
-
-        if ($filters['baths'] ?? false){
-            $query->where('baths', $filters['baths']);
-        }
-
-        if ($filters['areaFrom'] ?? false){
-            $query->where('area', '>=', $filters['areaFrom']);
-        }
-
-        if ($filters['areaTo'] ?? false){
-            $query->where('area', '<=', $filters['areaTo']);
-        }
+        $query = Listing::orderByDesc('created_at')
+        ->when(
+            $filters['priceFrom'] ?? false,
+            fn($query, $value) =>  $query->where('price', '>=', $value)
+        )
+        ->when(
+            $filters['priceTo'] ?? false,
+            fn($query, $value) =>  $query->where('price', '<=', $value)
+        )
+        ->when(
+            $filters['beds'] ?? false,
+            fn($query, $value) =>  $query->where('beds', $value)
+        )
+        ->when(
+            $filters['baths'] ?? false,
+            fn($query, $value) =>  $query->where('baths', $value)
+        )
+        ->when(
+            $filters['areaFrom'] ?? false,
+            fn($query, $value) =>  $query->where('area', '>=', $value)
+        )
+        ->when(
+            $filters['areaTo'] ?? false,
+            fn($query, $value) =>  $query->where('area', '<=', $value)
+        );
 
         return inertia(
             'Listing/Index',
