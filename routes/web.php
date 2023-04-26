@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\RealtorListingController;
 use App\Http\Controllers\UserAccountController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,3 +37,11 @@ Route::controller(AuthController::class)->group(function(){
 
 Route::resource('user-account', UserAccountController::class)
     ->only(['create', 'store']);
+
+Route::prefix('realtor')
+    ->middleware('auth')
+    ->name('realtor.')
+    ->group(function(){
+        Route::resource('listing', RealtorListingController::class)
+            ->only('index');
+    });
