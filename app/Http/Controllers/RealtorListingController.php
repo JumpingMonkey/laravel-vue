@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class RealtorListingController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Listing::class, 'realtor/listing');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -67,8 +72,10 @@ class RealtorListingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Listing $listing)
     {
-        //
+        $listing->deleteOrFail();
+
+        return redirect()->back()->with('success', 'Listing was deleted!');
     }
 }

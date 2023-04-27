@@ -7,7 +7,7 @@
                     <div class="text-xs text-gray-500">
                         <Price :price="monthlyPayment" /> pm
                     </div>
-                    
+
                 </div>
                 <ListingSpace :listing="listing" class="text-lg"></ListingSpace>
                 <ListingAddress :listing="listing" class="text-gray-500"></ListingAddress>
@@ -15,9 +15,6 @@
         </div>
         <div>
             <Link :href="route('listing.edit', {listing: listing.id})">Edit</Link>
-        </div>
-        <div>
-            <Link :href="route('listing.destroy', {listing: listing.id})" method="delete" as="button">Delete</Link>
         </div>
     </Box>
 </template>

@@ -24,7 +24,7 @@ Route::controller(IndexController::class)->group(function(){
 });
 
 Route::resource('listing', ListingController::class)
-->only(['create', 'store', 'edit', 'update', 'destroy'])
+->only(['create', 'store', 'edit', 'update'])
 ->middleware('auth');
 Route::resource('listing', ListingController::class)
 ->except(['create', 'store', 'edit', 'update', 'destroy']);
@@ -43,5 +43,5 @@ Route::prefix('realtor')
     ->name('realtor.')
     ->group(function(){
         Route::resource('listing', RealtorListingController::class)
-            ->only('index');
+            ->only(['index', 'destroy']);
     });
