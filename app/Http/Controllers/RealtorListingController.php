@@ -10,13 +10,13 @@ class RealtorListingController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(Listing::class, 'realtor/listing');
+        $this->authorizeResource(Listing::class, 'listing');
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $listing = $user->listings;
