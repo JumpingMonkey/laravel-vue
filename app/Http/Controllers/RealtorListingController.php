@@ -20,10 +20,11 @@ class RealtorListingController extends Controller
     {
         $filters = [
             'deleted' => $request->boolean('deleted'),
+            ... $request->only(['by', 'order']),
         ];
         $user = Auth::user();
         $listing = $user->listings()
-            ->mostRecent()
+            // ->mostRecent()
             ->filter($filters)
             ->get();
 
