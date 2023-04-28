@@ -32,6 +32,7 @@ class RealtorListingController extends Controller
             'Realtor/Index',
             [
                 'listings' => $listing,
+                'filters' => $filters,
             ]
         );
     }
