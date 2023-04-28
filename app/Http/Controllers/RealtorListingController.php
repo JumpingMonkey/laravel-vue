@@ -26,7 +26,8 @@ class RealtorListingController extends Controller
         $listing = $user->listings()
             // ->mostRecent()
             ->filter($filters)
-            ->get();
+            ->paginate(6)
+            ->withQueryString();
 
         return inertia(
             'Realtor/Index',
