@@ -41,7 +41,7 @@ Route::resource('user-account', UserAccountController::class)
 Route::prefix('realtor')
     ->middleware('auth')
     ->name('realtor.')
-    ->group(function(){
+    ->group(fn() =>
         Route::resource('listing', RealtorListingController::class)
-            ->only(['index', 'destroy']);
-    });
+            ->only(['index', 'destroy'])
+    );
