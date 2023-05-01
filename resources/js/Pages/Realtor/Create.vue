@@ -75,15 +75,5 @@
         price: 0,
     })
 
-    const create = () => form.post(route('listing.store'), form)
+    const create = () => form.post(route('realtor.listing.store'), form)
 </script>
-
-  <style scoped>
-  label {
-    margin-right: 2em;
-  }
-
-  div {
-    padding: 2px
-  }
-  </style>
