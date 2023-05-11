@@ -19,6 +19,7 @@ class RealtorListingImageController extends Controller
 
     public function store(Request $request, Listing $listing)
     {
+
         if ($request->hasFile('images'))
         {
             foreach($request->file('images') as $file)
@@ -29,8 +30,11 @@ class RealtorListingImageController extends Controller
                     'filename' => $path,
                 ]));
             }
+            return redirect()->back()->with('success', 'Files were uploaded!');
+        } else {
+            return redirect()->back()->with('success', 'Fuck!');
         }
 
-        return redirect()->back()->with('success', 'Files were uploaded!');
+
     }
 }
