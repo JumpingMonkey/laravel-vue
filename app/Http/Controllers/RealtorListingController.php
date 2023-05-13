@@ -23,9 +23,10 @@ class RealtorListingController extends Controller
             ... $request->only(['by', 'order']),
         ];
         $user = Auth::user();
-        $listing = $user->listings()
-            // ->mostRecent()
+        $listing = $user
+            ->listings()
             ->filter($filters)
+            ->withCount('images')
             ->paginate(6)
             ->withQueryString();
 

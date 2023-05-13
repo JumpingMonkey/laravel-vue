@@ -38,7 +38,7 @@
                     <div class="flex items-center gap-1">
                         <Link :href="route('realtor.listing.image.create', {listing: listing})"
                             class="btn-outline text-sm font-medium md:w-full text-center">
-                            Upload image
+                            Image ({{ listing.images_count }})
                         </Link>
                     </div>
                 </section>
