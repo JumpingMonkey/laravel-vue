@@ -15,6 +15,14 @@
             </section>
         </form>
     </Box>
+    <Box class="mt-4">
+        <template #header>Current listing images</template>
+        <section class="mt-4 grid md:grid-cols-2 gap-4">
+            <div v-for="image in listing.images" :key="image.id">
+                <img :src="image.src" class="rounded-md" />
+            </div>
+        </section>
+    </Box>
 
 </template>
 
@@ -22,10 +30,17 @@
 import { computed } from 'vue'
 import Box from '@/Components/UI/Box.vue'
 import { useForm } from '@inertiajs/vue3'
+import NProgress from 'nprogress'
+import { router } from '@inertiajs/vue3'
 
 const prop = defineProps({
         listing: Object
     })
+router.on('progress', (event) => {
+  if (event.detail.progress.percentage) {
+    NProgress.set((event.detail.progress.percentage / 100) * 0.9)
+  }
+})
 const canUpload = computed(() => form.images.length)
 
 const form = useForm({
