@@ -15,7 +15,7 @@
             </section>
         </form>
     </Box>
-    <Box class="mt-4">
+    <Box v-if="listing.images.length" class="mt-4">
         <template #header>Current listing images</template>
         <section class="mt-4 grid md:grid-cols-2 gap-4">
             <div v-for="image in listing.images" :key="image.id">
