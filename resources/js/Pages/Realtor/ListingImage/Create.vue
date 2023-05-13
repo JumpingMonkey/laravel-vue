@@ -18,8 +18,11 @@
     <Box v-if="listing.images.length" class="mt-4">
         <template #header>Current listing images</template>
         <section class="mt-4 grid md:grid-cols-2 gap-4">
-            <div v-for="image in listing.images" :key="image.id">
+            <div v-for="image in listing.images" :key="image.id"
+                class="flex flex-col justify-between">
                 <img :src="image.src" class="rounded-md" />
+                <Link :href="route('realtor.listing.image.destroy', {listing: props.listing.id, image: image})"
+                method="delete" as="button" class="mt-2 btn-outline text-xs">Delete</Link>
             </div>
         </section>
     </Box>
@@ -29,11 +32,10 @@
 <script setup>
 import { computed } from 'vue'
 import Box from '@/Components/UI/Box.vue'
-import { useForm } from '@inertiajs/vue3'
+import { useForm, router, Link } from '@inertiajs/vue3'
 import NProgress from 'nprogress'
-import { router } from '@inertiajs/vue3'
 
-const prop = defineProps({
+const props = defineProps({
         listing: Object
     })
 router.on('progress', (event) => {
@@ -47,7 +49,7 @@ const form = useForm({
     images: []
 })
 
-const upload = () => form.post(route('realtor.listing.image.store', {listing: prop.listing}),
+const upload = () => form.post(route('realtor.listing.image.store', {listing: props.listing}),
         {
             onSuccess: () => form.reset('images')
         }
