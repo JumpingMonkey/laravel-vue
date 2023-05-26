@@ -41,6 +41,12 @@
                             Image ({{ listing.images_count }})
                         </Link>
                     </div>
+                    <div class="flex items-center gap-1">
+                        <Link :href="route('realtor.listing.show', {listing: listing})"
+                            class="btn-outline text-sm font-medium md:w-full text-center">
+                            Offers ({{ listing.offers_count }})
+                        </Link>
+                    </div>
                 </section>
             </div>
         </Box>
