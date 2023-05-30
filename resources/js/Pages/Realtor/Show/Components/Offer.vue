@@ -2,6 +2,8 @@
     <Box>
         <template #header>Offer #{{ offer.id }}</template>
 
+
+
         <section class="flex items-center justify-between">
             <div>
                 <Price :price="offer.amount">
@@ -12,7 +14,7 @@
                     <Price :price="difference"></Price>
                 </div>
                 <div class="text-gray-500 text-sm">
-                    Made by John Doe
+                    Made by {{ offer.bidder.name }}
                 </div>
                 <div class="text-gray-500 text-sm">
                     Made on {{ madeOn }}
@@ -20,8 +22,9 @@
             </div>
             <div>
                 <Link
+                    :href="route('realtor.offer.accept', { offer: offer.id})"
                     class="btn-outline text-xs font-medium"
-
+                    method="put"
                     as="button">Accept</Link>
             </div>
         </section>
