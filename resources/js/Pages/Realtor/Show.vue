@@ -16,7 +16,8 @@
                 :key="offer.id"
                 class=""
                 :offer="offer"
-                :listing-price="listing.price">
+                :listing-price="listing.price"
+                :is-sold="listing.sold_at != null">
             </Offer>
         </div>
         <div class="md:col-span-5">
