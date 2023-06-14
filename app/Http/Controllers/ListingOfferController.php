@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use App\Models\Offer;
+use App\Notifications\OfferMade;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notifiable;
 
 class ListingOfferController extends Controller
 {
+    use Notifiable;
     /**
      * Display a listing of the resource.
      */
@@ -29,14 +32,16 @@ class ListingOfferController extends Controller
      */
     public function store(Listing $listing, Request $request)
     {
-        $this->authorize('viev', $listing);
+        $this->authorize('view', $listing);
         $validated = $request->validate([
             'amount' => 'required|integer|min:1|max:20000000',
         ]);
 
-        $listing->offers()->save(
+        $offer = $listing->offers()->save(
             Offer::make($validated)->bidder()->associate($request->user()),
         );
+
+        $listing->owner->notify(new OfferMade($offer));
 
         return redirect()->back()->with('success', 'Offer was made!');
     }
