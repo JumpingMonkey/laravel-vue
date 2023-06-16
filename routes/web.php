@@ -43,7 +43,7 @@ Route::resource('notification', NotificationController::class)
 Route::put(
     'notification/{notification}/seen',
     NotificationSeenController::class
-)->middleware('auth');
+)->middleware('auth')->name('notification.seen');
 
 Route::controller(AuthController::class)->group(function(){
     Route::get('login', 'create')->name('login');
