@@ -11,6 +11,7 @@ use App\Http\Controllers\RealtorListingController;
 use App\Http\Controllers\RealtorListingImageController;
 use App\Http\Controllers\UserAccountController;
 use App\Models\Offer;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,11 +52,21 @@ Route::controller(AuthController::class)->group(function(){
     Route::delete('logout', 'destroy')->name('logout');
 });
 
+Route::get('/email/verify', function(){
+    return inertia('Auth/VerifyEmail');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect()->route('listing.index')->with('success', 'Email was verified!');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
 Route::resource('user-account', UserAccountController::class)
     ->only(['create', 'store']);
 
 Route::prefix('realtor')
-    ->middleware('auth')
+    ->middleware(['auth', 'verified'])
     ->name('realtor.')
     ->group(function () {
         Route::name('listing.restore')
