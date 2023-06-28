@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ListingOfferController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\RealtorListingImageController;
 use App\Http\Controllers\UserAccountController;
 use App\Models\Offer;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,15 +54,31 @@ Route::controller(AuthController::class)->group(function(){
     Route::delete('logout', 'destroy')->name('logout');
 });
 
-Route::get('/email/verify', function(){
-    return inertia('Auth/VerifyEmail');
-})->middleware('auth')->name('verification.notice');
+//email verification
+Route::controller(EmailVerificationController::class)
+    ->group(function(){
+    Route::get('/email/verify', 'verificationNotice')
+        ->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', 'verify')
+        ->middleware('signed')
+        ->name('verification.verify');
+    Route::post('/email/verification-notification', 'verificationSend')
+        ->middleware('throttle:6,1')
+        ->name('verification.send');
+})->middleware('auth');
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
+// Route::get('/email/verify', [EmailVerificationController::class, 'verificationNotice'])
+//     ->middleware('auth')
+//     ->name('verification.notice');
 
-    return redirect()->route('listing.index')->with('success', 'Email was verified!');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+// Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
+//     ->middleware(['auth', 'signed'])
+//     ->name('verification.verify');
+
+// Route::post('/email/verification-notification', [EmailVerificationController::class, 'verificationSend'])
+//     ->middleware(['auth', 'throttle:6,1'])
+//     ->name('verification.send');
+//
 
 Route::resource('user-account', UserAccountController::class)
     ->only(['create', 'store']);
